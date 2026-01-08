@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auslosung 4 – Watt Mini App</title>
+
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/png" href="kofering-icon.png">
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const teams = JSON.parse(localStorage.getItem("teams")) || [];
+            const list = document.getElementById("teams");
+
+            teams.forEach(t => {
+                const li = document.createElement("li");
+                li.textContent = `${t.player1} & ${t.player2}`;
+                list.appendChild(li);
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <h1>Auslosung 4</h1>
+
+    <nav>
+        <a href="index.html">Startseite</a>
+        <a href="vorrunde.html">Vorrunde</a>
+        <a href="auslosung1.html">Auslosung 1</a>
+        <a href="auslosung2.html">Auslosung 2</a>
+        <a href="auslosung3.html">Auslosung 3</a>
+        <a href="auslosung4.html">Auslosung 4</a>
+        <a href="auslosung5.html">Auslosung 5</a>
+    </nav>
+
+    <ul id="teams"></ul>
+</body>
+</html>

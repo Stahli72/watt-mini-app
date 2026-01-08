@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vorrunde – Watt Mini App</title>
+
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/png" href="kofering-icon.png">
+
+    <script>
+        document.addEventListener("DOMContentLoaded", loadTeamsFromLocalStorage);
+
+        function loadTeamsFromLocalStorage() {
+            const teams = JSON.parse(localStorage.getItem("teams")) || [];
+            const tbody = document.querySelector("#preliminary-round tbody");
+            tbody.innerHTML = "";
+
+            teams.forEach((team, index) => {
+                const row = document.createElement("tr");
+
+                row.innerHTML = `
+                    <td>${index + 1}</td>
+                    <td>${team.player1} & ${team.player2}</td>
+
+                    ${team.rounds.map((r, i) => `
+                        <td><input class="points" data-team="${index}" data-round="${i}" value="${r.points === '' ? '' : r.points}"></td>
+                        <td><input class="goals" data-team="${index}" data-round="${i}" value="${r.goals === '' ? '' : r.goals}"></td>
+                    `).join("")}
+
+                    <td><input class="total-points" disabled></td>
+                    <td><input class="total-goals" disabled></td>
+                    <td><input class="overall-total" disabled></td>
+                `;
+
+                tbody.appendChild(row);
+            });
+
+            calculateTotals();
+        }
+
+        function calculateTotals() {
+            const rows = document.querySelectorAll('#preliminary-round tbody tr');
+
+            rows.forEach(row => {
+                let totalPoints = 0;
+                let totalGoals = 0;
+
+                row.querySelectorAll('.points').forEach(input => {
+                    totalPoints += input.value === '' ? 0 : Number(input.value);
+                });
+
+                row.querySelectorAll('.goals').forEach(input => {
+                    totalGoals += input.value === '' ? 0 : Number(input.value);
+                });
+
+                row.querySelector('.total-points').value = totalPoints;
+                row.querySelector('.total-goals').value = totalGoals;
+                row.querySelector('.overall-total').value = totalPoints * 100 + totalGoals;
+            });
+
+            saveToLocalStorage();
+        }
+
+        function saveToLocalStorage() {
+            const teams = JSON.parse(localStorage.getItem("teams")) || [];
+
+            document.querySelectorAll('#preliminary-round tbody tr').forEach((row, index) => {
+                const points = row.querySelectorAll('.points');
+                const goals = row.querySelectorAll('.goals');
+
+                teams[index].rounds = Array.from(points).map((p, i) => ({
+                    points: p.value === '' ? '' : Number(p.value),
+                    goals: goals[i].value === '' ? '' : Number(goals[i].value)
+                }));
+            });
+
+            localStorage.setItem("teams", JSON.stringify(teams));
+        }
+    </script>
+</head>
+
+<body>
+    <h1>Vorrunde</h1>
+
+    <nav>
+        <a href="index.html">Startseite</a>
+        <a href="vorrunde.html">Vorrunde</a>
+        <a href="auslosung1.html">Auslosung 1</a>
+        <a href="auslosung2.html">Auslosung 2</a>
+        <a href="auslosung3.html">Auslosung 3</a>
+        <a href="auslosung4.html">Auslosung 4</a>
+        <a href="auslosung5.html">Auslosung 5</a>
+    </nav>
+
+    <table id="preliminary-round">
+        <thead>
+            <tr>
+                <th>Platz</th>
+                <th>Mannschaft</th>
+                <th colspan="2">Runde 1</th>
+                <th colspan="2">Runde 2</th>
+                <th colspan="2">Runde 3</th>
+                <th colspan="2">Runde 4</th>
+                <th colspan="2">Runde 5</th>
+                <th>Punkte</th>
+                <th>Tore</th>
+                <th>Gesamt</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</body>
+</html>
