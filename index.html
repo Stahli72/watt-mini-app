@@ -47,8 +47,139 @@
         }
     </script>
 </head>
+<style>
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    text-align: center;
+    margin-bottom: 80px; /* Platz für die Menüleiste */
+}
 
-<body>
+h1 {
+    margin-bottom: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+table, th, td {
+    border: 1px solid #000;
+}
+
+th, td {
+    padding: 8px;
+    text-align: center;
+}
+
+th {
+    background-color: #3656A7;
+    color: white;
+}
+
+td {
+    background-color: #ADD8E6;
+}
+
+button {
+    margin: 5px;
+    padding: 10px;
+    background-color: #3656A7;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 4px;
+}
+
+button:hover {
+    background-color: #2a4485;
+}
+
+.form-container {
+    border: 2px solid #3656A7;
+    padding: 15px;
+    margin: 20px auto;
+    width: 90%;
+    max-width: 400px;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    text-align: center;
+}
+
+.form-container h3 {
+    color: #3656A7;
+    margin-bottom: 10px;
+}
+
+.form-container input[type="text"] {
+    width: 80%;
+    padding: 8px;
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+
+/* Menüleiste */
+.app-menu {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #3656A7;
+    display: flex;
+    justify-content: space-around;
+    padding: 10px 0;
+    border-top: 2px solid #2a4485;
+    z-index: 1000;
+}
+
+.app-menu a {
+    color: white;
+    text-decoration: none;
+    font-size: 14px;
+    text-align: center;
+    flex: 1;
+}
+
+.app-menu a:hover {
+    background-color: #2a4485;
+    padding: 8px;
+    border-radius: 4px;
+}
+
+@media (max-width: 600px) {
+    .form-container {
+        width: 95%;
+    }
+    table {
+        font-size: 14px;
+    }
+}
+
+.turnier-details {
+    display: grid;
+    grid-template-columns: 120px auto;
+    row-gap: 8px;
+    justify-content: center;
+    margin: 0 auto 20px auto;
+    text-align: left;
+    max-width: 400px;
+}
+
+.turnier-details .label {
+    font-weight: bold;
+}
+
+.turnier-details .value input {
+    width: 100%;
+    text-align: center;
+}
+</style>
+
+
+    <body>
     <h1>Watt Mini App</h1>
 
     <nav>
@@ -70,3 +201,4 @@
     <ul id="team-list"></ul>
 </body>
 </html>
+
